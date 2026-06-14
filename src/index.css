@@ -1,0 +1,306 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700;800&family=Fira+Code:wght@400;500;600&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-serif: "Playfair Display", Georgia, serif;
+  --font-sans: "Inter", system-ui, -apple-system, sans-serif;
+  --font-mono: "Fira Code", monospace;
+
+  --color-vintage-bg: #F7F1DE;
+  --color-vintage-green: #B0BA99;
+  --color-vintage-green-dark: #818D68;
+  --color-vintage-green-light: #C4CCA9;
+  --color-vintage-brown: #9D6638;
+  --color-vintage-dark: #4E220F;
+  --color-vintage-accent: #E5A96A;
+  --color-vintage-cream: #FFFDF6;
+  --color-vintage-card: #FAF6EB;
+}
+
+/* Global overflow safety + base color */
+html,
+body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+body {
+  background-color: #F7F1DE;
+  color: #4E220F;
+  font-family: var(--font-sans);
+}
+
+/* Reusable layout helpers */
+.safe-container {
+  width: 100%;
+  max-width: 80rem;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.no-x-scroll {
+  overflow-x: hidden;
+}
+
+/* Focus ring utility (accessibility) */
+.focus-visible-ring:focus-visible {
+  outline: 3px solid rgba(157, 102, 56, 0.6);
+  outline-offset: 2px;
+}
+
+/* === Enhanced Responsive Utilities === */
+
+/* Responsive typography using clamp() */
+.responsive-title {
+  font-size: clamp(1.25rem, 2.2vw, 2.25rem);
+  line-height: 1.15;
+}
+
+.responsive-heading {
+  font-size: clamp(1.1rem, 1.9vw, 1.6rem);
+  line-height: 1.2;
+}
+
+.responsive-body {
+  font-size: clamp(0.9rem, 1.2vw, 1rem);
+  line-height: 1.5;
+}
+
+.responsive-hero {
+  font-size: clamp(1.875rem, 5.5vw, 4.5rem);
+  line-height: 1.05;
+}
+
+.responsive-section-title {
+  font-size: clamp(1.5rem, 3.5vw, 3rem);
+  line-height: 1.1;
+}
+
+.responsive-subtitle {
+  font-size: clamp(0.875rem, 1.5vw, 1.125rem);
+  line-height: 1.4;
+}
+
+.responsive-small {
+  font-size: clamp(0.75rem, 1vw, 0.875rem);
+}
+
+.responsive-tiny {
+  font-size: clamp(0.625rem, 0.8vw, 0.75rem);
+}
+
+/* Min touch target sizes for mobile */
+.min-touch {
+  min-height: 44px;
+  min-width: 44px;
+}
+
+.min-touch-sm {
+  min-height: 36px;
+  min-width: 36px;
+}
+
+/* Responsive spacing */
+.responsive-p {
+  padding: clamp(0.75rem, 2.5vw, 1.5rem);
+}
+
+.responsive-px {
+  padding-left: clamp(0.75rem, 2.5vw, 1.5rem);
+  padding-right: clamp(0.75rem, 2.5vw, 1.5rem);
+}
+
+.responsive-py {
+  padding-top: clamp(1rem, 3vw, 2rem);
+  padding-bottom: clamp(1rem, 3vw, 2rem);
+}
+
+.responsive-gap {
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* Responsive card padding */
+.card-p-responsive {
+  padding: clamp(0.75rem, 2vw, 1.5rem);
+}
+
+/* Responsive grid helper for stat cards - wraps 2-col at 320px cleanly */
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(140px, 100%), 1fr));
+  gap: clamp(0.5rem, 1.5vw, 1rem);
+}
+
+/* Responsive modal overlay */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1rem;
+  background-color: rgba(78, 34, 15, 0.6);
+  backdrop-filter: blur(4px);
+}
+
+.modal-content {
+  width: min(95vw, 560px);
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* Prevent layout shift on mobile when scrollbar disappears */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* Responsive table wrapper - wraps tables for horizontal scroll at small screens */
+.table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.table-responsive table {
+  min-width: 600px;
+  width: 100%;
+}
+
+/* Ensure buttons don't overflow on 320px */
+.btn-responsive {
+  white-space: nowrap;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Responsive side-by-side to stacked */
+.stack-on-mobile {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 640px) {
+  .stack-on-mobile {
+    flex-direction: row;
+  }
+}
+
+/* Elegant scrollbar matching the chocolate/espresso tones */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #F7F1DE;
+}
+::-webkit-scrollbar-thumb {
+  background: #B0BA99;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #9D6638;
+}
+
+/* Custom styled vintage container shadows and borders */
+.vintage-border {
+  border: 2px solid #4E220F;
+  box-shadow: 4px 4px 0px 0px #4E220F;
+}
+
+.vintage-border-sm {
+  border: 1px solid #4E220F;
+  box-shadow: 2px 2px 0px 0px #4E220F;
+}
+
+.vintage-interactive:hover {
+  transform: translate(-2px, -2px);
+  box-shadow: 6px 6px 0px 0px #4E220F;
+}
+
+.vintage-btn {
+  background-color: #9D6638;
+  color: #FFFDF6;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border: 2px solid #4E220F;
+  box-shadow: 3px 3px 0px 0px #4E220F;
+  transition: all 0.15s ease-in-out;
+}
+
+.vintage-btn:hover:not(:disabled) {
+  transform: translate(-2px, -2px);
+  box-shadow: 5px 5px 0px 0px #4E220F;
+  background-color: #AF7647;
+}
+
+.vintage-btn:active:not(:disabled) {
+  transform: translate(1px, 1px);
+  box-shadow: 1px 1px 0px 0px #4E220F;
+}
+
+.vintage-btn-secondary {
+  background-color: #B0BA99;
+  color: #4E220F;
+  font-family: var(--font-sans);
+  font-weight: 600;
+  border: 2px solid #4E220F;
+  box-shadow: 2px 2px 0px 0px #4E220F;
+  transition: all 0.15s ease-in-out;
+}
+
+.vintage-btn-secondary:hover:not(:disabled) {
+  transform: translate(-1px, -1px);
+  box-shadow: 4px 4px 0px 0px #4E220F;
+  background-color: #818D68;
+  color: #FFFDF6;
+}
+
+.vintage-card {
+  background-color: #FAF6EB;
+  border: 2px solid #4E220F;
+  box-shadow: 4px 4px 0px 0px #4E220F;
+}
+
+/* Keyframe animation for reading and typewriter aesthetics */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+/* Responsive font size helpers for specific component patterns */
+@media (max-width: 374px) {
+  .text-3xs { font-size: 0.625rem; }
+  .text-2xs { font-size: 0.6875rem; }
+  
+  .stats-card {
+    padding: 0.75rem !important;
+  }
+  
+  .stats-card .stat-value {
+    font-size: 1rem !important;
+  }
+  
+  .stats-card .stat-label {
+    font-size: 0.5625rem !important;
+  }
+}
+
+/* Safe area for notched phones */
+@supports (padding: env(safe-area-inset-bottom)) {
+  .pb-safe {
+    padding-bottom: env(safe-area-inset-bottom);
+  }
+}

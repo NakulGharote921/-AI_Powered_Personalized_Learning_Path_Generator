@@ -1,0 +1,826 @@
+{
+  "users": [
+    {
+      "id": "admin_user",
+      "name": "Elizabeth Parker",
+      "email": "nakulgharote@gmail.com",
+      "role": "admin",
+      "created_at": "2026-06-13T14:13:05.388Z",
+      "password": "password123"
+    },
+    {
+      "id": "sample_student",
+      "name": "James Sterling",
+      "email": "student@learning.edu",
+      "role": "student",
+      "created_at": "2026-06-13T14:13:05.389Z",
+      "password": "password123"
+    },
+    {
+      "id": "u_z6prechzh",
+      "name": "Nakulgharotee",
+      "email": "nakulgharotee@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-13T14:13:05.405Z",
+      "password": ""
+    },
+    {
+      "id": "user_7908qxm5d",
+      "name": "Nakul gharote",
+      "email": "nakulghaffrote@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-13T14:30:10.771Z",
+      "password": "password123"
+    },
+    {
+      "id": "user_y58x8t8sy",
+      "name": "Nakul gharote",
+      "email": "nakulghfarote@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-13T14:30:42.884Z",
+      "password": "RRRRRRRR"
+    },
+    {
+      "id": "user_qun7o6t33",
+      "name": "Nakul Gharote",
+      "email": "nakulgharotef@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-13T14:31:20.545Z",
+      "password": "############",
+      "experience_level": "Beginner",
+      "career_goals": "MERN STACK DEV",
+      "interests": "",
+      "learning_preferences": "Visual tutorials",
+      "weekly_hours": 12
+    },
+    {
+      "id": "u_arohklk8v",
+      "name": "Nnnnnnn",
+      "email": "nnnnnnn@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-14T06:26:15.683Z",
+      "password": ""
+    },
+    {
+      "id": "u_socxpo7cm",
+      "name": "Nakul",
+      "email": "nakul@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-14T06:37:59.436Z",
+      "password": "",
+      "experience_level": "Beginner",
+      "career_goals": "CET",
+      "interests": "nnnnn",
+      "learning_preferences": "Visual tutorials",
+      "weekly_hours": 32
+    },
+    {
+      "id": "u_xtxwjagf1",
+      "name": "Sdsd",
+      "email": "sdsd@gmail.com",
+      "role": "student",
+      "created_at": "2026-06-14T06:41:59.740Z",
+      "password": ""
+    }
+  ],
+  "skills": [
+    {
+      "id": "s1",
+      "skill_name": "React.js",
+      "category": "Frontend Development"
+    },
+    {
+      "id": "s2",
+      "skill_name": "TypeScript",
+      "category": "Programming Languages"
+    },
+    {
+      "id": "s3",
+      "skill_name": "CSS Grid & Tailwind",
+      "category": "Frontend Design"
+    },
+    {
+      "id": "s4",
+      "skill_name": "Node.js & Express",
+      "category": "Backend Development"
+    },
+    {
+      "id": "s5",
+      "skill_name": "PostgreSQL & SQL",
+      "category": "Databases"
+    },
+    {
+      "id": "s6",
+      "skill_name": "Python & FastAPI",
+      "category": "Backend Development"
+    },
+    {
+      "id": "s7",
+      "skill_name": "Domain-Driven Design",
+      "category": "Software Architecture"
+    },
+    {
+      "id": "s8",
+      "skill_name": "Docker & Containerization",
+      "category": "DevOps"
+    },
+    {
+      "id": "s_u9vnw",
+      "skill_name": "Tailwind CSS",
+      "category": "Frontend Design"
+    },
+    {
+      "id": "s_ferzk",
+      "skill_name": "Python",
+      "category": "Custom Category"
+    },
+    {
+      "id": "s_7y3e7",
+      "skill_name": "UI/UX & Figma",
+      "category": "Design"
+    },
+    {
+      "id": "s_pmwet",
+      "skill_name": "jjjj",
+      "category": "Custom Category"
+    }
+  ],
+  "user_skills": [
+    {
+      "user_id": "sample_student",
+      "skill_id": "s1",
+      "proficiency": "Beginner"
+    },
+    {
+      "user_id": "sample_student",
+      "skill_id": "s2",
+      "proficiency": "Beginner"
+    },
+    {
+      "user_id": "sample_student",
+      "skill_id": "s6",
+      "proficiency": "Intermediate"
+    },
+    {
+      "user_id": "user_qun7o6t33",
+      "skill_id": "s1",
+      "proficiency": "Advanced"
+    },
+    {
+      "user_id": "u_socxpo7cm",
+      "skill_id": "s1",
+      "proficiency": "Beginner"
+    },
+    {
+      "user_id": "u_socxpo7cm",
+      "skill_id": "s_7y3e7",
+      "proficiency": "Beginner"
+    },
+    {
+      "user_id": "u_socxpo7cm",
+      "skill_id": "s_pmwet",
+      "proficiency": "Beginner"
+    }
+  ],
+  "learning_paths": [
+    {
+      "id": "p1",
+      "user_id": "sample_student",
+      "title": "Production-Grade Python APIs with FastAPI & React",
+      "goal": "Become an elite Full-Stack developer engineering Clean Python backends and modular React frontends",
+      "duration": "12 Weeks",
+      "created_at": "2026-06-13T14:13:05.389Z",
+      "is_active": true,
+      "skill_gaps": [
+        "Domain-Driven Design (DDD) Boundaries",
+        "Clean APIs with FastAPI & Pytest",
+        "Relational Database Performance Indexes & Postgres"
+      ]
+    },
+    {
+      "id": "lp_ix10bpeqa",
+      "user_id": "user_qun7o6t33",
+      "title": "Premium Path to MERN Stack Dev",
+      "goal": "MERN Stack Dev",
+      "duration": "10 weeks",
+      "created_at": "2026-06-13T14:44:21.392Z",
+      "is_active": false,
+      "skill_gaps": [
+        "Foundational MERN Stack Dev mechanics",
+        "Performance benchmarks for MERN Stack Dev",
+        "Industrial standards & architecture"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "lp_lze98qmft",
+      "user_id": "user_qun7o6t33",
+      "title": "Premium Path to MERN STACK DEV",
+      "goal": "MERN STACK DEV",
+      "duration": "10 weeks",
+      "created_at": "2026-06-14T06:05:01.706Z",
+      "is_active": true,
+      "skill_gaps": [
+        "Foundational MERN STACK DEV mechanics",
+        "Performance benchmarks for MERN STACK DEV",
+        "Industrial standards & architecture"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "lp_pj6p8vy85",
+      "user_id": "u_socxpo7cm",
+      "title": "Premium Path to CET",
+      "goal": "CET",
+      "duration": "4 weeks",
+      "created_at": "2026-06-14T06:38:46.821Z",
+      "is_active": true,
+      "skill_gaps": [
+        "Foundational CET mechanics",
+        "Performance benchmarks for CET",
+        "Industrial standards & architecture"
+      ],
+      "is_simulated": true
+    }
+  ],
+  "modules": [
+    {
+      "id": "m1",
+      "learning_path_id": "p1",
+      "title": "Stage 1: Production-Grade Python APIs with FastAPI & Clean Architecture Foundations",
+      "description": "This introduces concepts systematically to cover basic gaps before integrating them into React components in later phases. Ground backend API logic efficiently with official guidance, and design clean boundaries between models, controllers, and domain interfaces aligning with Domain-Driven Design (DDD). Touch structural patterns securely. Complete code builds and localized test runners help validate correct operation throughout this foundational stage.",
+      "difficulty": "Intermediate",
+      "estimated_time": "38 hours",
+      "sort_order": 1,
+      "milestone": "Finish this module with a robust, working CRUD application that interfaces seamlessly with clean data models and local PostgreSQL instances."
+    },
+    {
+      "id": "m2",
+      "learning_path_id": "p1",
+      "title": "Stage 2: Full-Stack React.js & Tailwind CSS Integration",
+      "description": "Establish strong foundations in building client interfaces, connecting React dashboard layouts, using Tailwind CSS, and designing vintage-inspired curriculum components. Learn to handle asynchronous states cleanly with standard hooks.",
+      "difficulty": "Intermediate",
+      "estimated_time": "25 hours",
+      "sort_order": 2,
+      "milestone": "Integrate the FastAPI CRUD backend cleanly with custom React dashboard layouts, using Tailwind CSS and Vite."
+    },
+    {
+      "id": "m3",
+      "learning_path_id": "p1",
+      "title": "Stage 3: Advanced Optimization & Enterprise Security Abstractions",
+      "description": "Deep dive into generics, CORS secure middleware proxies, relational index performance testing, token validations, and Memory optimizations under heavy loads.",
+      "difficulty": "Advanced",
+      "estimated_time": "35 hours",
+      "sort_order": 3,
+      "milestone": "Deploy high-throughput multi-role asset hubs and execute microservices with Docker containerization."
+    },
+    {
+      "id": "mod_sim_0_fj91z",
+      "learning_path_id": "lp_ix10bpeqa",
+      "title": "Stage 1: Core Fundamentals & Principles",
+      "description": "Grasp foundational schemas, syntax alignment, and critical concepts related to MERN Stack Dev.",
+      "difficulty": "Beginner",
+      "estimated_time": "12 hours",
+      "sort_order": 1,
+      "milestone": "Develop an isolated prototype mapping standard operations"
+    },
+    {
+      "id": "mod_sim_1_dstv4",
+      "learning_path_id": "lp_ix10bpeqa",
+      "title": "Stage 2: Schema Mastery, Architecture & Integration",
+      "description": "Scale your MERN Stack Dev systems, optimizing for security gates, clean parameters, and modern guidelines.",
+      "difficulty": "Intermediate",
+      "estimated_time": "22 hours",
+      "sort_order": 2,
+      "milestone": "Formulate a structural database layer linking modules cleanly"
+    },
+    {
+      "id": "mod_sim_2_xdqx3",
+      "learning_path_id": "lp_ix10bpeqa",
+      "title": "Stage 3: Advanced Optimization & Professional Capstone",
+      "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
+      "difficulty": "Advanced",
+      "estimated_time": "32 hours",
+      "sort_order": 3,
+      "milestone": "Synthesize everything into an enterprise-ready educational portfolio"
+    },
+    {
+      "id": "mod_sim_0_g5f2n",
+      "learning_path_id": "lp_lze98qmft",
+      "title": "Stage 1: Core Fundamentals & Principles",
+      "description": "Grasp foundational schemas, syntax alignment, and critical concepts related to MERN STACK DEV.",
+      "difficulty": "Beginner",
+      "estimated_time": "12 hours",
+      "sort_order": 1,
+      "milestone": "Develop an isolated prototype mapping standard operations"
+    },
+    {
+      "id": "mod_sim_1_k74qt",
+      "learning_path_id": "lp_lze98qmft",
+      "title": "Stage 2: Schema Mastery, Architecture & Integration",
+      "description": "Scale your MERN STACK DEV systems, optimizing for security gates, clean parameters, and modern guidelines.",
+      "difficulty": "Intermediate",
+      "estimated_time": "22 hours",
+      "sort_order": 2,
+      "milestone": "Formulate a structural database layer linking modules cleanly"
+    },
+    {
+      "id": "mod_sim_2_ohodj",
+      "learning_path_id": "lp_lze98qmft",
+      "title": "Stage 3: Advanced Optimization & Professional Capstone",
+      "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
+      "difficulty": "Advanced",
+      "estimated_time": "32 hours",
+      "sort_order": 3,
+      "milestone": "Synthesize everything into an enterprise-ready educational portfolio"
+    },
+    {
+      "id": "mod_sim_0_ynfve",
+      "learning_path_id": "lp_pj6p8vy85",
+      "title": "Stage 1: Core Fundamentals & Principles",
+      "description": "Grasp foundational schemas, syntax alignment, and critical concepts related to CET.",
+      "difficulty": "Beginner",
+      "estimated_time": "12 hours",
+      "sort_order": 1,
+      "milestone": "Develop an isolated prototype mapping standard operations"
+    },
+    {
+      "id": "mod_sim_1_rxuda",
+      "learning_path_id": "lp_pj6p8vy85",
+      "title": "Stage 2: Schema Mastery, Architecture & Integration",
+      "description": "Scale your CET systems, optimizing for security gates, clean parameters, and modern guidelines.",
+      "difficulty": "Intermediate",
+      "estimated_time": "22 hours",
+      "sort_order": 2,
+      "milestone": "Formulate a structural database layer linking modules cleanly"
+    },
+    {
+      "id": "mod_sim_2_yhu1n",
+      "learning_path_id": "lp_pj6p8vy85",
+      "title": "Stage 3: Advanced Optimization & Professional Capstone",
+      "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
+      "difficulty": "Advanced",
+      "estimated_time": "32 hours",
+      "sort_order": 3,
+      "milestone": "Synthesize everything into an enterprise-ready educational portfolio"
+    }
+  ],
+  "resources": [
+    {
+      "id": "r1",
+      "module_id": "m1",
+      "title": "Fastapi Official Guidelines & Code-Driven Tutorials",
+      "type": "Documentation",
+      "url": "https://fastapi.tiangolo.com/"
+    },
+    {
+      "id": "r2",
+      "module_id": "m1",
+      "title": "Clean Architecture in Python Guides",
+      "type": "Article",
+      "url": "https://books.google.com"
+    },
+    {
+      "id": "r3",
+      "module_id": "m2",
+      "title": "React & Tailwind CSS Layout Grid Mastery",
+      "type": "Documentation",
+      "url": "https://tailwindcss.com"
+    },
+    {
+      "id": "r4",
+      "module_id": "m3",
+      "title": "Docker Execution & Container Isolation Docs",
+      "type": "Code",
+      "url": "https://docs.docker.com/"
+    },
+    {
+      "id": "res_sim_a_0",
+      "module_id": "mod_sim_0_fj91z",
+      "title": "Comprehensive Course on MERN Stack Dev (Beginner)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_0",
+      "module_id": "mod_sim_0_fj91z",
+      "title": "Advanced YouTube Tutorial - Mastering MERN Stack Dev",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_0",
+      "module_id": "mod_sim_0_fj91z",
+      "title": "Mastery Documentation Guides for MERN Stack Dev",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_1",
+      "module_id": "mod_sim_1_dstv4",
+      "title": "Comprehensive Course on MERN Stack Dev (Intermediate)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_1",
+      "module_id": "mod_sim_1_dstv4",
+      "title": "Advanced YouTube Tutorial - Mastering MERN Stack Dev",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_1",
+      "module_id": "mod_sim_1_dstv4",
+      "title": "Mastery Documentation Guides for MERN Stack Dev",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_2",
+      "module_id": "mod_sim_2_xdqx3",
+      "title": "Comprehensive Course on MERN Stack Dev (Advanced)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_2",
+      "module_id": "mod_sim_2_xdqx3",
+      "title": "Advanced YouTube Tutorial - Mastering MERN Stack Dev",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_2",
+      "module_id": "mod_sim_2_xdqx3",
+      "title": "Mastery Documentation Guides for MERN Stack Dev",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_0",
+      "module_id": "mod_sim_0_g5f2n",
+      "title": "Comprehensive Course on MERN STACK DEV (Beginner)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_0",
+      "module_id": "mod_sim_0_g5f2n",
+      "title": "Advanced YouTube Tutorial - Mastering MERN STACK DEV",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_0",
+      "module_id": "mod_sim_0_g5f2n",
+      "title": "Mastery Documentation Guides for MERN STACK DEV",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_1",
+      "module_id": "mod_sim_1_k74qt",
+      "title": "Comprehensive Course on MERN STACK DEV (Intermediate)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_1",
+      "module_id": "mod_sim_1_k74qt",
+      "title": "Advanced YouTube Tutorial - Mastering MERN STACK DEV",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_1",
+      "module_id": "mod_sim_1_k74qt",
+      "title": "Mastery Documentation Guides for MERN STACK DEV",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_2",
+      "module_id": "mod_sim_2_ohodj",
+      "title": "Comprehensive Course on MERN STACK DEV (Advanced)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_2",
+      "module_id": "mod_sim_2_ohodj",
+      "title": "Advanced YouTube Tutorial - Mastering MERN STACK DEV",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_2",
+      "module_id": "mod_sim_2_ohodj",
+      "title": "Mastery Documentation Guides for MERN STACK DEV",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_0",
+      "module_id": "mod_sim_0_ynfve",
+      "title": "Comprehensive Course on CET (Beginner)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_0",
+      "module_id": "mod_sim_0_ynfve",
+      "title": "Advanced YouTube Tutorial - Mastering CET",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_0",
+      "module_id": "mod_sim_0_ynfve",
+      "title": "Mastery Documentation Guides for CET",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_1",
+      "module_id": "mod_sim_1_rxuda",
+      "title": "Comprehensive Course on CET (Intermediate)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_1",
+      "module_id": "mod_sim_1_rxuda",
+      "title": "Advanced YouTube Tutorial - Mastering CET",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_1",
+      "module_id": "mod_sim_1_rxuda",
+      "title": "Mastery Documentation Guides for CET",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_2",
+      "module_id": "mod_sim_2_yhu1n",
+      "title": "Comprehensive Course on CET (Advanced)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_2",
+      "module_id": "mod_sim_2_yhu1n",
+      "title": "Advanced YouTube Tutorial - Mastering CET",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_2",
+      "module_id": "mod_sim_2_yhu1n",
+      "title": "Mastery Documentation Guides for CET",
+      "type": "Documentation",
+      "url": "https://google.com"
+    }
+  ],
+  "progress": [
+    {
+      "id": "pr1",
+      "user_id": "sample_student",
+      "module_id": "m1",
+      "status": "in_progress",
+      "completion_percentage": 45
+    },
+    {
+      "id": "pr2",
+      "user_id": "sample_student",
+      "module_id": "m2",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "pr3",
+      "user_id": "sample_student",
+      "module_id": "m3",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_0_hjnot",
+      "user_id": "user_qun7o6t33",
+      "module_id": "mod_sim_0_fj91z",
+      "status": "completed",
+      "completion_percentage": 100,
+      "quiz_score": 67
+    },
+    {
+      "id": "prg_sim_1_rn56s",
+      "user_id": "user_qun7o6t33",
+      "module_id": "mod_sim_1_dstv4",
+      "status": "completed",
+      "completion_percentage": 100,
+      "quiz_score": 0
+    },
+    {
+      "id": "prg_sim_2_yjo4v",
+      "user_id": "user_qun7o6t33",
+      "module_id": "mod_sim_2_xdqx3",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_0_975s7",
+      "user_id": "user_qun7o6t33",
+      "module_id": "mod_sim_0_g5f2n",
+      "status": "completed",
+      "completion_percentage": 100,
+      "quiz_score": 33
+    },
+    {
+      "id": "prg_sim_1_xa5a6",
+      "user_id": "user_qun7o6t33",
+      "module_id": "mod_sim_1_k74qt",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_2_er0k1",
+      "user_id": "user_qun7o6t33",
+      "module_id": "mod_sim_2_ohodj",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_0_6dq1a",
+      "user_id": "u_socxpo7cm",
+      "module_id": "mod_sim_0_ynfve",
+      "status": "completed",
+      "completion_percentage": 100,
+      "quiz_score": 33
+    },
+    {
+      "id": "prg_sim_1_2rwu1",
+      "user_id": "u_socxpo7cm",
+      "module_id": "mod_sim_1_rxuda",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_2_cbw6e",
+      "user_id": "u_socxpo7cm",
+      "module_id": "mod_sim_2_yhu1n",
+      "status": "not_started",
+      "completion_percentage": 0
+    }
+  ],
+  "messages": [
+    {
+      "id": "msg_init",
+      "user_id": "sample_student",
+      "sender": "mentor",
+      "text": "Greetings, scholars! I am your AI Mentor, Barnaby Sterling. Tell me what subject or career roadblock you are currently facing in our backend Python or frontend React architectures, and we will dissect it together with precise methodology.",
+      "timestamp": "2026-06-13T14:13:05.389Z"
+    },
+    {
+      "id": "msg_u_s1vvk08vp",
+      "user_id": "u_z6prechzh",
+      "sender": "user",
+      "text": "I am stuck on TypeScript Generics constraints.",
+      "timestamp": "2026-06-13T14:16:19.538Z"
+    },
+    {
+      "id": "msg_m_u4mtzaxqs",
+      "user_id": "u_z6prechzh",
+      "sender": "mentor",
+      "text": "Do not despond! Challenges are merely modules in progression. First, isolate the variables. Isolate your database. Read your local configurations. Feel free to complete the quick-assessment quiz to verify your foundations.",
+      "timestamp": "2026-06-13T14:16:19.539Z"
+    },
+    {
+      "id": "msg_u_5thzwssd4",
+      "user_id": "user_qun7o6t33",
+      "sender": "user",
+      "text": "I am stuck on TypeScript Generics constraints.",
+      "timestamp": "2026-06-13T14:38:32.990Z"
+    },
+    {
+      "id": "msg_m_1egkolddt",
+      "user_id": "user_qun7o6t33",
+      "sender": "mentor",
+      "text": "Do not despond! Challenges are merely modules in progression. First, isolate the variables. Isolate your database. Read your local configurations. Feel free to complete the quick-assessment quiz to verify your foundations.",
+      "timestamp": "2026-06-13T14:38:32.990Z"
+    },
+    {
+      "id": "msg_u_q291dzbal",
+      "user_id": "user_qun7o6t33",
+      "sender": "user",
+      "text": "How do I prepare a capstone layout project for interview review?",
+      "timestamp": "2026-06-13T14:38:51.511Z"
+    },
+    {
+      "id": "msg_m_kmlx4adkg",
+      "user_id": "user_qun7o6t33",
+      "sender": "mentor",
+      "text": "A fascinating query concerning your study targets! To master this, I prescribe a three-fold methodology:\n\n1. **Theoretical Exploration**: Review the recommended official documentation files in the library.\n2. **Practical Synthesis**: Clone or wireframe a standalone mockup.\n3. **Validation Check**: Perform an interactive quiz on the platform.\n\nHow do you wish to proceed with this course?",
+      "timestamp": "2026-06-13T14:38:51.511Z"
+    },
+    {
+      "id": "msg_u_hjxy9lspx",
+      "user_id": "user_qun7o6t33",
+      "sender": "user",
+      "text": "hi",
+      "timestamp": "2026-06-14T06:09:47.322Z"
+    },
+    {
+      "id": "msg_m_y06xisf4q",
+      "user_id": "user_qun7o6t33",
+      "sender": "mentor",
+      "text": "Ah, greeting, scholar! It is a grand day to advance our curriculum. Pray tell, which academic or development roadblock is challenging your focus today?",
+      "timestamp": "2026-06-14T06:09:47.322Z"
+    },
+    {
+      "id": "msg_u_1i14a91fr",
+      "user_id": "user_qun7o6t33",
+      "sender": "user",
+      "text": "hi",
+      "timestamp": "2026-06-14T06:10:14.710Z"
+    },
+    {
+      "id": "msg_m_9tuls537u",
+      "user_id": "user_qun7o6t33",
+      "sender": "mentor",
+      "text": "Ah, greeting, scholar! It is a grand day to advance our curriculum. Pray tell, which academic or development roadblock is challenging your focus today?",
+      "timestamp": "2026-06-14T06:10:14.710Z"
+    },
+    {
+      "id": "msg_u_i5gabx6vt",
+      "user_id": "user_qun7o6t33",
+      "sender": "user",
+      "text": "How do I prepare a capstone layout project for interview review?",
+      "timestamp": "2026-06-14T06:10:57.625Z"
+    },
+    {
+      "id": "msg_m_2v26eqp4z",
+      "user_id": "user_qun7o6t33",
+      "sender": "mentor",
+      "text": "A fascinating query concerning your study targets! To master this, I prescribe a three-fold methodology:\n\n1. **Theoretical Exploration**: Review the recommended official documentation files in the library.\n2. **Practical Synthesis**: Clone or wireframe a standalone mockup.\n3. **Validation Check**: Perform an interactive quiz on the platform.\n\nHow do you wish to proceed with this course?",
+      "timestamp": "2026-06-14T06:10:57.625Z"
+    },
+    {
+      "id": "msg_u_ao5vu6miw",
+      "user_id": "user_qun7o6t33",
+      "sender": "user",
+      "text": "How do I prepare a capstone layout project for interview review?",
+      "timestamp": "2026-06-14T06:25:42.616Z"
+    },
+    {
+      "id": "msg_m_ea1coawyg",
+      "user_id": "user_qun7o6t33",
+      "sender": "mentor",
+      "text": "A fascinating query concerning your study targets! To master this, I prescribe a three-fold methodology:\n\n1. **Theoretical Exploration**: Review the recommended official documentation files in the library.\n2. **Practical Synthesis**: Clone or wireframe a standalone mockup.\n3. **Validation Check**: Perform an interactive quiz on the platform.\n\nHow do you wish to proceed with this course?",
+      "timestamp": "2026-06-14T06:25:42.617Z"
+    },
+    {
+      "id": "msg_u_e5c59ncbg",
+      "user_id": "u_socxpo7cm",
+      "sender": "user",
+      "text": "How do I prepare a capstone layout project for interview review?",
+      "timestamp": "2026-06-14T06:39:48.690Z"
+    },
+    {
+      "id": "msg_m_knuyuj3ec",
+      "user_id": "u_socxpo7cm",
+      "sender": "mentor",
+      "text": "A fascinating query concerning your study targets! To master this, I prescribe a three-fold methodology:\n\n1. **Theoretical Exploration**: Review the recommended official documentation files in the library.\n2. **Practical Synthesis**: Clone or wireframe a standalone mockup.\n3. **Validation Check**: Perform an interactive quiz on the platform.\n\nHow do you wish to proceed with this course?",
+      "timestamp": "2026-06-14T06:39:48.690Z"
+    },
+    {
+      "id": "msg_u_l4uktw552",
+      "user_id": "u_socxpo7cm",
+      "sender": "user",
+      "text": "How do I prepare a capstone layout project for interview review?",
+      "timestamp": "2026-06-14T06:41:31.065Z"
+    },
+    {
+      "id": "msg_m_3ldbiygi5",
+      "user_id": "u_socxpo7cm",
+      "sender": "mentor",
+      "text": "A fascinating query concerning your study targets! To master this, I prescribe a three-fold methodology:\n\n1. **Theoretical Exploration**: Review the recommended official documentation files in the library.\n2. **Practical Synthesis**: Clone or wireframe a standalone mockup.\n3. **Validation Check**: Perform an interactive quiz on the platform.\n\nHow do you wish to proceed with this course?",
+      "timestamp": "2026-06-14T06:41:31.065Z"
+    },
+    {
+      "id": "msg_u_383pmplpw",
+      "user_id": "u_socxpo7cm",
+      "sender": "user",
+      "text": "How do I prepare a capstone layout project for interview review?",
+      "timestamp": "2026-06-14T06:41:42.296Z"
+    },
+    {
+      "id": "msg_m_agmy71kbl",
+      "user_id": "u_socxpo7cm",
+      "sender": "mentor",
+      "text": "A fascinating query concerning your study targets! To master this, I prescribe a three-fold methodology:\n\n1. **Theoretical Exploration**: Review the recommended official documentation files in the library.\n2. **Practical Synthesis**: Clone or wireframe a standalone mockup.\n3. **Validation Check**: Perform an interactive quiz on the platform.\n\nHow do you wish to proceed with this course?",
+      "timestamp": "2026-06-14T06:41:42.296Z"
+    }
+  ]
+}

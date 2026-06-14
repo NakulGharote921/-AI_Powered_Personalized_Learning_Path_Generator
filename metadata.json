@@ -1,0 +1,6 @@
+{
+  "name": "Personalized Learning Path Generator",
+  "description": "A premium personalized learning path generator featuring automated skill assessments, AI-driven roadmaps, progress tracking, rich resource recommendations, and an AI mentor.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
