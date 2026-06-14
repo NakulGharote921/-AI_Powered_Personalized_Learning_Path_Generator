@@ -180,6 +180,16 @@
       "user_id": "u_socxpo7cm",
       "skill_id": "s_pmwet",
       "proficiency": "Beginner"
+    },
+    {
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "skill_id": "s1",
+      "proficiency": "Beginner"
+    },
+    {
+      "user_id": "10CtNs3LReWz3DVNsxfOdCG4iLw1",
+      "skill_id": "s1",
+      "proficiency": "Beginner"
     }
   ],
   "learning_paths": [
@@ -238,6 +248,51 @@
       "skill_gaps": [
         "Foundational CET mechanics",
         "Performance benchmarks for CET",
+        "Industrial standards & architecture"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "lp_2x4uh59ew",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "title": "Premium Path to cet",
+      "goal": "cet",
+      "duration": "10 weeks",
+      "created_at": "2026-06-14T07:56:16.674Z",
+      "is_active": false,
+      "skill_gaps": [
+        "Foundational cet mechanics",
+        "Performance benchmarks for cet",
+        "Industrial standards & architecture"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "lp_h1hosqh3h",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "title": "Premium Path to react dev",
+      "goal": "react dev",
+      "duration": "10 weeks",
+      "created_at": "2026-06-14T08:11:17.506Z",
+      "is_active": true,
+      "skill_gaps": [
+        "Foundational react dev mechanics",
+        "Performance benchmarks for react dev",
+        "Industrial standards & architecture"
+      ],
+      "is_simulated": true
+    },
+    {
+      "id": "lp_oxs8c89aj",
+      "user_id": "10CtNs3LReWz3DVNsxfOdCG4iLw1",
+      "title": "Premium Path to MERN STACK",
+      "goal": "MERN STACK",
+      "duration": "10 weeks",
+      "created_at": "2026-06-14T08:23:34.879Z",
+      "is_active": true,
+      "skill_gaps": [
+        "Foundational MERN STACK mechanics",
+        "Performance benchmarks for MERN STACK",
         "Industrial standards & architecture"
       ],
       "is_simulated": true
@@ -357,6 +412,96 @@
     {
       "id": "mod_sim_2_yhu1n",
       "learning_path_id": "lp_pj6p8vy85",
+      "title": "Stage 3: Advanced Optimization & Professional Capstone",
+      "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
+      "difficulty": "Advanced",
+      "estimated_time": "32 hours",
+      "sort_order": 3,
+      "milestone": "Synthesize everything into an enterprise-ready educational portfolio"
+    },
+    {
+      "id": "mod_sim_0_mzbd1",
+      "learning_path_id": "lp_2x4uh59ew",
+      "title": "Stage 1: Core Fundamentals & Principles",
+      "description": "Grasp foundational schemas, syntax alignment, and critical concepts related to cet.",
+      "difficulty": "Beginner",
+      "estimated_time": "12 hours",
+      "sort_order": 1,
+      "milestone": "Develop an isolated prototype mapping standard operations"
+    },
+    {
+      "id": "mod_sim_1_1k53g",
+      "learning_path_id": "lp_2x4uh59ew",
+      "title": "Stage 2: Schema Mastery, Architecture & Integration",
+      "description": "Scale your cet systems, optimizing for security gates, clean parameters, and modern guidelines.",
+      "difficulty": "Intermediate",
+      "estimated_time": "22 hours",
+      "sort_order": 2,
+      "milestone": "Formulate a structural database layer linking modules cleanly"
+    },
+    {
+      "id": "mod_sim_2_0vugs",
+      "learning_path_id": "lp_2x4uh59ew",
+      "title": "Stage 3: Advanced Optimization & Professional Capstone",
+      "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
+      "difficulty": "Advanced",
+      "estimated_time": "32 hours",
+      "sort_order": 3,
+      "milestone": "Synthesize everything into an enterprise-ready educational portfolio"
+    },
+    {
+      "id": "mod_sim_0_28zm1",
+      "learning_path_id": "lp_h1hosqh3h",
+      "title": "Stage 1: Core Fundamentals & Principles",
+      "description": "Grasp foundational schemas, syntax alignment, and critical concepts related to react dev.",
+      "difficulty": "Beginner",
+      "estimated_time": "12 hours",
+      "sort_order": 1,
+      "milestone": "Develop an isolated prototype mapping standard operations"
+    },
+    {
+      "id": "mod_sim_1_c8yf2",
+      "learning_path_id": "lp_h1hosqh3h",
+      "title": "Stage 2: Schema Mastery, Architecture & Integration",
+      "description": "Scale your react dev systems, optimizing for security gates, clean parameters, and modern guidelines.",
+      "difficulty": "Intermediate",
+      "estimated_time": "22 hours",
+      "sort_order": 2,
+      "milestone": "Formulate a structural database layer linking modules cleanly"
+    },
+    {
+      "id": "mod_sim_2_i7pur",
+      "learning_path_id": "lp_h1hosqh3h",
+      "title": "Stage 3: Advanced Optimization & Professional Capstone",
+      "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
+      "difficulty": "Advanced",
+      "estimated_time": "32 hours",
+      "sort_order": 3,
+      "milestone": "Synthesize everything into an enterprise-ready educational portfolio"
+    },
+    {
+      "id": "mod_sim_0_bp7wb",
+      "learning_path_id": "lp_oxs8c89aj",
+      "title": "Stage 1: Core Fundamentals & Principles",
+      "description": "Grasp foundational schemas, syntax alignment, and critical concepts related to MERN STACK.",
+      "difficulty": "Beginner",
+      "estimated_time": "12 hours",
+      "sort_order": 1,
+      "milestone": "Develop an isolated prototype mapping standard operations"
+    },
+    {
+      "id": "mod_sim_1_9rnlw",
+      "learning_path_id": "lp_oxs8c89aj",
+      "title": "Stage 2: Schema Mastery, Architecture & Integration",
+      "description": "Scale your MERN STACK systems, optimizing for security gates, clean parameters, and modern guidelines.",
+      "difficulty": "Intermediate",
+      "estimated_time": "22 hours",
+      "sort_order": 2,
+      "milestone": "Formulate a structural database layer linking modules cleanly"
+    },
+    {
+      "id": "mod_sim_2_ak1h0",
+      "learning_path_id": "lp_oxs8c89aj",
       "title": "Stage 3: Advanced Optimization & Professional Capstone",
       "description": "Complete high-fidelity optimization protocols, auditing your learning metrics for industrial readiness.",
       "difficulty": "Advanced",
@@ -582,6 +727,195 @@
       "title": "Mastery Documentation Guides for CET",
       "type": "Documentation",
       "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_0",
+      "module_id": "mod_sim_0_mzbd1",
+      "title": "Comprehensive Course on cet (Beginner)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_0",
+      "module_id": "mod_sim_0_mzbd1",
+      "title": "Advanced YouTube Tutorial - Mastering cet",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_0",
+      "module_id": "mod_sim_0_mzbd1",
+      "title": "Mastery Documentation Guides for cet",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_1",
+      "module_id": "mod_sim_1_1k53g",
+      "title": "Comprehensive Course on cet (Intermediate)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_1",
+      "module_id": "mod_sim_1_1k53g",
+      "title": "Advanced YouTube Tutorial - Mastering cet",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_1",
+      "module_id": "mod_sim_1_1k53g",
+      "title": "Mastery Documentation Guides for cet",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_2",
+      "module_id": "mod_sim_2_0vugs",
+      "title": "Comprehensive Course on cet (Advanced)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_2",
+      "module_id": "mod_sim_2_0vugs",
+      "title": "Advanced YouTube Tutorial - Mastering cet",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_2",
+      "module_id": "mod_sim_2_0vugs",
+      "title": "Mastery Documentation Guides for cet",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_0",
+      "module_id": "mod_sim_0_28zm1",
+      "title": "Comprehensive Course on react dev (Beginner)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_0",
+      "module_id": "mod_sim_0_28zm1",
+      "title": "Advanced YouTube Tutorial - Mastering react dev",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_0",
+      "module_id": "mod_sim_0_28zm1",
+      "title": "Mastery Documentation Guides for react dev",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_1",
+      "module_id": "mod_sim_1_c8yf2",
+      "title": "Comprehensive Course on react dev (Intermediate)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_1",
+      "module_id": "mod_sim_1_c8yf2",
+      "title": "Advanced YouTube Tutorial - Mastering react dev",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_1",
+      "module_id": "mod_sim_1_c8yf2",
+      "title": "Mastery Documentation Guides for react dev",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_2",
+      "module_id": "mod_sim_2_i7pur",
+      "title": "Comprehensive Course on react dev (Advanced)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_2",
+      "module_id": "mod_sim_2_i7pur",
+      "title": "Advanced YouTube Tutorial - Mastering react dev",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_2",
+      "module_id": "mod_sim_2_i7pur",
+      "title": "Mastery Documentation Guides for react dev",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_0",
+      "module_id": "mod_sim_0_bp7wb",
+      "title": "Comprehensive Course on MERN STACK (Beginner)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_0",
+      "module_id": "mod_sim_0_bp7wb",
+      "title": "Advanced YouTube Tutorial - Mastering MERN STACK",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_0",
+      "module_id": "mod_sim_0_bp7wb",
+      "title": "Mastery Documentation Guides for MERN STACK",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_1",
+      "module_id": "mod_sim_1_9rnlw",
+      "title": "Comprehensive Course on MERN STACK (Intermediate)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_1",
+      "module_id": "mod_sim_1_9rnlw",
+      "title": "Advanced YouTube Tutorial - Mastering MERN STACK",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_1",
+      "module_id": "mod_sim_1_9rnlw",
+      "title": "Mastery Documentation Guides for MERN STACK",
+      "type": "Documentation",
+      "url": "https://google.com"
+    },
+    {
+      "id": "res_sim_a_2",
+      "module_id": "mod_sim_2_ak1h0",
+      "title": "Comprehensive Course on MERN STACK (Advanced)",
+      "type": "Course",
+      "url": "https://www.coursera.org"
+    },
+    {
+      "id": "res_sim_b_2",
+      "module_id": "mod_sim_2_ak1h0",
+      "title": "Advanced YouTube Tutorial - Mastering MERN STACK",
+      "type": "YouTube Tutorial",
+      "url": "https://youtube.com"
+    },
+    {
+      "id": "res_sim_c_2",
+      "module_id": "mod_sim_2_ak1h0",
+      "title": "Mastery Documentation Guides for MERN STACK",
+      "type": "Documentation",
+      "url": "https://google.com"
     }
   ],
   "progress": [
@@ -670,6 +1004,69 @@
       "id": "prg_sim_2_cbw6e",
       "user_id": "u_socxpo7cm",
       "module_id": "mod_sim_2_yhu1n",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_0_9psao",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "module_id": "mod_sim_0_mzbd1",
+      "status": "in_progress",
+      "completion_percentage": 30
+    },
+    {
+      "id": "prg_sim_1_akyb9",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "module_id": "mod_sim_1_1k53g",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_2_as3qw",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "module_id": "mod_sim_2_0vugs",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_0_5k0y8",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "module_id": "mod_sim_0_28zm1",
+      "status": "in_progress",
+      "completion_percentage": 30
+    },
+    {
+      "id": "prg_sim_1_n4n5g",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "module_id": "mod_sim_1_c8yf2",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_2_z4efd",
+      "user_id": "NmhYZATYDBgNRwk0A9icWJt0zOj1",
+      "module_id": "mod_sim_2_i7pur",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_0_gjmdj",
+      "user_id": "10CtNs3LReWz3DVNsxfOdCG4iLw1",
+      "module_id": "mod_sim_0_bp7wb",
+      "status": "in_progress",
+      "completion_percentage": 30
+    },
+    {
+      "id": "prg_sim_1_dwmp1",
+      "user_id": "10CtNs3LReWz3DVNsxfOdCG4iLw1",
+      "module_id": "mod_sim_1_9rnlw",
+      "status": "not_started",
+      "completion_percentage": 0
+    },
+    {
+      "id": "prg_sim_2_gic1m",
+      "user_id": "10CtNs3LReWz3DVNsxfOdCG4iLw1",
+      "module_id": "mod_sim_2_ak1h0",
       "status": "not_started",
       "completion_percentage": 0
     }

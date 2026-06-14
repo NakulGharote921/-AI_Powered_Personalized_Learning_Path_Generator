@@ -1,143 +1,39 @@
 import express from "express";
 import path from "path";
-import fs from "fs";
+import dotenv from "dotenv";
 import { createServer as createViteServer } from "vite";
 import { GoogleGenAI, Type } from "@google/genai";
 
+// Load environment variables
+dotenv.config();
+
+import {
+  getDB,
+  writeDB,
+  seedDatabaseIfEmpty,
+  getCollection,
+  addRecord,
+  updateRecord,
+  removeRecord,
+  queryByField,
+  getRecord,
+  type DatabaseStructure,
+} from "./src/services/firebaseServerDB";
+
 const app = express();
 const PORT = 3000;
-const DB_FILE = path.join(process.cwd(), "db_store.json");
 
 app.use(express.json());
 
-// Initialize Database structure (Offline RELATIONAL system simulation)
-function getDB() {
-  let dbExists = fs.existsSync(DB_FILE);
-  let dbData: any = null;
-  if (dbExists) {
-    try {
-      dbData = JSON.parse(fs.readFileSync(DB_FILE, "utf8"));
-    } catch (e) {
-      dbExists = false;
-    }
+// Init Firebase RTDB and seed if empty (on first server start)
+(async () => {
+  try {
+    await seedDatabaseIfEmpty();
+    console.log("[Server] Firebase Realtime Database is ready.");
+  } catch (err) {
+    console.error("[Server] Failed to initialize Firebase RTDB:", err);
   }
-
-  // Force migrate if old pathway title exists
-  const isOldDb = dbData && dbData.learning_paths && dbData.learning_paths.some((p: any) => p.title === "Modern Full-Stack Architect Pathway" || p.title === "Aesthetic Learning Path to Stage 1");
-
-  if (!dbExists || isOldDb) {
-    const initialDB = {
-      users: [
-        {
-          id: "admin_user",
-          name: "Elizabeth Parker",
-          email: "nakulgharote@gmail.com",
-          role: "admin",
-          created_at: new Date().toISOString(),
-          password: "password123"
-        },
-        {
-          id: "sample_student",
-          name: "James Sterling",
-          email: "student@learning.edu",
-          role: "student",
-          created_at: new Date().toISOString(),
-          password: "password123"
-        }
-      ],
-      skills: [
-        { id: "s1", skill_name: "React.js", category: "Frontend Development" },
-        { id: "s2", skill_name: "TypeScript", category: "Programming Languages" },
-        { id: "s3", skill_name: "CSS Grid & Tailwind", category: "Frontend Design" },
-        { id: "s4", skill_name: "Node.js & Express", category: "Backend Development" },
-        { id: "s5", skill_name: "PostgreSQL & SQL", category: "Databases" },
-        { id: "s6", skill_name: "Python & FastAPI", category: "Backend Development" },
-        { id: "s7", skill_name: "Domain-Driven Design", category: "Software Architecture" },
-        { id: "s8", skill_name: "Docker & Containerization", category: "DevOps" }
-      ],
-      user_skills: [
-        { user_id: "sample_student", skill_id: "s1", proficiency: "Beginner" },
-        { user_id: "sample_student", skill_id: "s2", proficiency: "Beginner" },
-        { user_id: "sample_student", skill_id: "s6", proficiency: "Intermediate" }
-      ],
-      learning_paths: [
-        {
-          id: "p1",
-          user_id: "sample_student",
-          title: "Production-Grade Python APIs with FastAPI & React",
-          goal: "Become an elite Full-Stack developer engineering Clean Python backends and modular React frontends",
-          duration: "12 Weeks",
-          created_at: new Date().toISOString(),
-          is_active: true,
-          skill_gaps: [
-            "Domain-Driven Design (DDD) Boundaries",
-            "Clean APIs with FastAPI & Pytest",
-            "Relational Database Performance Indexes & Postgres"
-          ]
-        }
-      ],
-      modules: [
-        {
-          id: "m1",
-          learning_path_id: "p1",
-          title: "Stage 1: Production-Grade Python APIs with FastAPI & Clean Architecture Foundations",
-          description: "This introduces concepts systematically to cover basic gaps before integrating them into React components in later phases. Ground backend API logic efficiently with official guidance, and design clean boundaries between models, controllers, and domain interfaces aligning with Domain-Driven Design (DDD). Touch structural patterns securely. Complete code builds and localized test runners help validate correct operation throughout this foundational stage.",
-          difficulty: "Intermediate",
-          estimated_time: "38 hours",
-          sort_order: 1,
-          milestone: "Finish this module with a robust, working CRUD application that interfaces seamlessly with clean data models and local PostgreSQL instances."
-        },
-        {
-          id: "m2",
-          learning_path_id: "p1",
-          title: "Stage 2: Full-Stack React.js & Tailwind CSS Integration",
-          description: "Establish strong foundations in building client interfaces, connecting React dashboard layouts, using Tailwind CSS, and designing vintage-inspired curriculum components. Learn to handle asynchronous states cleanly with standard hooks.",
-          difficulty: "Intermediate",
-          estimated_time: "25 hours",
-          sort_order: 2,
-          milestone: "Integrate the FastAPI CRUD backend cleanly with custom React dashboard layouts, using Tailwind CSS and Vite."
-        },
-        {
-          id: "m3",
-          learning_path_id: "p1",
-          title: "Stage 3: Advanced Optimization & Enterprise Security Abstractions",
-          description: "Deep dive into generics, CORS secure middleware proxies, relational index performance testing, token validations, and Memory optimizations under heavy loads.",
-          difficulty: "Advanced",
-          estimated_time: "35 hours",
-          sort_order: 3,
-          milestone: "Deploy high-throughput multi-role asset hubs and execute microservices with Docker containerization."
-        }
-      ],
-      resources: [
-        { id: "r1", module_id: "m1", title: "Fastapi Official Guidelines & Code-Driven Tutorials", type: "Documentation", url: "https://fastapi.tiangolo.com/" },
-        { id: "r2", module_id: "m1", title: "Clean Architecture in Python Guides", type: "Article", url: "https://books.google.com" },
-        { id: "r3", module_id: "m2", title: "React & Tailwind CSS Layout Grid Mastery", type: "Documentation", url: "https://tailwindcss.com" },
-        { id: "r4", module_id: "m3", title: "Docker Execution & Container Isolation Docs", type: "Code", url: "https://docs.docker.com/" }
-      ],
-      progress: [
-        { id: "pr1", user_id: "sample_student", module_id: "m1", status: "in_progress", completion_percentage: 45 },
-        { id: "pr2", user_id: "sample_student", module_id: "m2", status: "not_started", completion_percentage: 0 },
-        { id: "pr3", user_id: "sample_student", module_id: "m3", status: "not_started", completion_percentage: 0 }
-      ],
-      messages: [
-        {
-          id: "msg_init",
-          user_id: "sample_student",
-          sender: "mentor",
-          text: "Greetings, scholars! I am your AI Mentor, Barnaby Sterling. Tell me what subject or career roadblock you are currently facing in our backend Python or frontend React architectures, and we will dissect it together with precise methodology.",
-          timestamp: new Date().toISOString()
-        }
-      ]
-    };
-    fs.writeFileSync(DB_FILE, JSON.stringify(initialDB, null, 2), "utf8");
-    return initialDB;
-  }
-  return dbData;
-}
-
-function writeDB(data: any) {
-  fs.writeFileSync(DB_FILE, JSON.stringify(data, null, 2), "utf8");
-}
+})();
 
 // Lazy Initialize Gemini client correctly
 let geminiClient: GoogleGenAI | null = null;
@@ -165,9 +61,9 @@ function getGeminiClient(): GoogleGenAI | null {
 let currentSessionUser: any = null;
 
 // Auth endpoints
-app.post("/api/auth/register", (req, res) => {
+app.post("/api/auth/register", async (req, res) => {
   const { name, email, password, role } = req.body;
-  const db_data = getDB();
+  const db_data = await getDB();
 
   if (!name || !email || !password) {
     return res.status(400).json({ error: "Missing required fields" });
@@ -188,15 +84,15 @@ app.post("/api/auth/register", (req, res) => {
   };
 
   db_data.users.push(newUser);
-  writeDB(db_data);
+  await writeDB(db_data);
 
   currentSessionUser = { id: newUser.id, name: newUser.name, email: newUser.email, role: newUser.role };
   res.json({ user: currentSessionUser, message: "Registered successfully" });
 });
 
-app.post("/api/auth/login", (req, res) => {
+app.post("/api/auth/login", async (req, res) => {
   const { email, password } = req.body;
-  const db_data = getDB();
+  const db_data = await getDB();
 
   if (!email || !password) {
     return res.status(400).json({ error: "Email and password are required" });
@@ -214,14 +110,14 @@ app.post("/api/auth/login", (req, res) => {
   res.json({ user: currentSessionUser, message: "Logged in successfully" });
 });
 
-app.post("/api/auth/firebase-sync", (req, res) => {
+app.post("/api/auth/firebase-sync", async (req, res) => {
   // Sync a successfully logged-in Firebase user into our database metadata
   const { uid, name, email } = req.body;
   if (!email) {
     return res.status(400).json({ error: "Valid email is required to sync" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   let user = db_data.users.find((u: any) => u.email.toLowerCase() === email.toLowerCase());
 
   if (!user) {
@@ -234,7 +130,7 @@ app.post("/api/auth/firebase-sync", (req, res) => {
       password: ""
     };
     db_data.users.push(user);
-    writeDB(db_data);
+    await writeDB(db_data);
   }
 
   currentSessionUser = { id: user.id, name: user.name, email: user.email, role: user.role };
@@ -246,31 +142,33 @@ app.post("/api/auth/logout", (req, res) => {
   res.json({ message: "Successfully logged out" });
 });
 
-app.get("/api/auth/session", (req, res) => {
+app.get("/api/auth/session", async (req, res) => {
   if (currentSessionUser) {
     return res.json({ user: currentSessionUser });
   }
   // Default fallback for preview ease, start as sample student if nobody is active
-  const db_data = getDB();
+  const db_data = await getDB();
   const fallback = db_data.users.find((u: any) => u.id === "sample_student");
-  currentSessionUser = { id: fallback.id, name: fallback.name, email: fallback.email, role: fallback.role };
+  if (fallback) {
+    currentSessionUser = { id: fallback.id, name: fallback.name, email: fallback.email, role: fallback.role };
+  }
   res.json({ user: currentSessionUser });
 });
 
 // Skills endpoint
-app.get("/api/skills", (req, res) => {
-  const db_data = getDB();
+app.get("/api/skills", async (req, res) => {
+  const db_data = await getDB();
   res.json(db_data.skills);
 });
 
 // Update Profile Assessment & Current Skills
-app.post("/api/assessment", (req, res) => {
+app.post("/api/assessment", async (req, res) => {
   const { userId, selectedSkills, experienceLevel, careerGoals, interests, learningPreferences, weeklyHours } = req.body;
   if (!userId) {
     return res.status(400).json({ error: "User ID is required" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   
   // Wipe existing user skills
   db_data.user_skills = db_data.user_skills.filter((us: any) => us.user_id !== userId);
@@ -292,6 +190,7 @@ app.post("/api/assessment", (req, res) => {
       }
 
       db_data.user_skills.push({
+        id: "us_" + Math.random().toString(36).substr(2, 9),
         user_id: userId,
         skill_id: existingSkill.id,
         proficiency: skillItem.proficiency || "Beginner"
@@ -312,7 +211,7 @@ app.post("/api/assessment", (req, res) => {
     };
   }
 
-  writeDB(db_data);
+  await writeDB(db_data);
   res.json({ success: true, message: "Skills and preferences updated successfully" });
 });
 
@@ -327,7 +226,7 @@ app.post("/api/learning-path/generate", async (req, res) => {
   const activeDuration = durationWeeks ? `${durationWeeks} weeks` : "8 weeks";
   const pathTitle = title || `Aesthetic Learning Path to ${goal}`;
 
-  const db_data = getDB();
+  const db_data = await getDB();
   const ai = getGeminiClient();
 
   if (ai) {
@@ -473,7 +372,7 @@ app.post("/api/learning-path/generate", async (req, res) => {
         });
       }
 
-      writeDB(db_data);
+      await writeDB(db_data);
       return res.json({ success: true, learningPathId: pathId, data: parsedGpt });
 
     } catch (err: any) {
@@ -571,18 +470,18 @@ app.post("/api/learning-path/generate", async (req, res) => {
     });
   });
 
-  writeDB(db_data);
+  await writeDB(db_data);
   res.json({ success: true, learningPathId: pathId, is_simulated: true });
 });
 
 // Dashboard Statistics & Relational Join Aggregator
-app.get("/api/dashboard-data", (req, res) => {
+app.get("/api/dashboard-data", async (req, res) => {
   const userId = req.query.userId as string;
   if (!userId) {
     return res.status(400).json({ error: "userId parameter is required" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
 
   // Relational aggregates
   const activePath = db_data.learning_paths.find((lp: any) => lp.user_id === userId && lp.is_active);
@@ -646,13 +545,13 @@ app.get("/api/dashboard-data", (req, res) => {
 });
 
 // Update Module Progress Percentage or Status
-app.post("/api/progress/update", (req, res) => {
+app.post("/api/progress/update", async (req, res) => {
   const { userId, moduleId, status, percentage } = req.body;
   if (!userId || !moduleId) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   let progRecord = db_data.progress.find((p: any) => p.user_id === userId && p.module_id === moduleId);
 
   if (!progRecord) {
@@ -669,36 +568,36 @@ app.post("/api/progress/update", (req, res) => {
     if (percentage !== undefined) progRecord.completion_percentage = percentage;
   }
 
-  writeDB(db_data);
+  await writeDB(db_data);
   res.json({ success: true, progress: progRecord });
 });
 
 // Activate a specific learning path
-app.post("/api/learning-path/activate", (req, res) => {
+app.post("/api/learning-path/activate", async (req, res) => {
   const { userId, pathId } = req.body;
   if (!userId || !pathId) {
     return res.status(400).json({ error: "userId and pathId are required" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   db_data.learning_paths.forEach((p: any) => {
     if (p.user_id === userId) {
       p.is_active = (p.id === pathId);
     }
   });
 
-  writeDB(db_data);
+  await writeDB(db_data);
   res.json({ success: true, message: "Aesthetic path activated successfully" });
 });
 
 // Submit Quiz and Unlock Progress
-app.post("/api/quizzes/submit", (req, res) => {
+app.post("/api/quizzes/submit", async (req, res) => {
   const { userId, moduleId, score } = req.body;
   if (!userId || !moduleId) {
     return res.status(400).json({ error: "Missing required fields" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   let progRecord = db_data.progress.find((p: any) => p.user_id === userId && p.module_id === moduleId);
 
   if (!progRecord) {
@@ -717,7 +616,7 @@ app.post("/api/quizzes/submit", (req, res) => {
     progRecord.quiz_score = score;
   }
 
-  writeDB(db_data);
+  await writeDB(db_data);
   res.json({ success: true, progress: progRecord });
 });
 
@@ -728,7 +627,7 @@ app.post("/api/mentor/chat", async (req, res) => {
     return res.status(400).json({ error: "Missing prompt text or userId" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   
   // Save user's message
   const userMsgId = "msg_u_" + Math.random().toString(36).substr(2, 9);
@@ -800,22 +699,22 @@ app.post("/api/mentor/chat", async (req, res) => {
     timestamp: new Date().toISOString()
   };
   db_data.messages.push(mentorMessage);
-  writeDB(db_data);
+  await writeDB(db_data);
 
   res.json({ success: true, messages: [userMessage, mentorMessage] });
 });
 
 // Full messages log
-app.get("/api/mentor/chat/history", (req, res) => {
+app.get("/api/mentor/chat/history", async (req, res) => {
   const userId = req.query.userId as string;
-  const db_data = getDB();
+  const db_data = await getDB();
   const logs = db_data.messages.filter((m: any) => m.user_id === userId || m.id === "msg_init");
   res.json(logs);
 });
 
 // Admin Panel overview endpoint
-app.get("/api/admin/overview", (req, res) => {
-  const db_data = getDB();
+app.get("/api/admin/overview", async (req, res) => {
+  const db_data = await getDB();
   
   // Calculate analytics
   const totalUsers = db_data.users.length;
@@ -853,17 +752,17 @@ app.get("/api/admin/overview", (req, res) => {
   });
 });
 
-app.post("/api/admin/skills/add", (req, res) => {
+app.post("/api/admin/skills/add", async (req, res) => {
   const { skill_name, category } = req.body;
   if (!skill_name || !category) {
     return res.status(400).json({ error: "Name and Category are required" });
   }
 
-  const db_data = getDB();
+  const db_data = await getDB();
   const id = "s_" + Math.random().toString(36).substr(2, 5);
   const newSkill = { id, skill_name, category };
   db_data.skills.push(newSkill);
-  writeDB(db_data);
+  await writeDB(db_data);
 
   res.json({ success: true, skill: newSkill });
 });

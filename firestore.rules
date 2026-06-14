@@ -1,0 +1,127 @@
+rules_version = '2';
+
+// ============================================================================
+// Firestore Security Rules for Chronicle Academy
+//
+// Structure:
+//   /users/{uid}                        - User profile document (owner only)
+//   /users/{uid}/projects/{projectId}   - User's projects (owner only)
+//   /users/{uid}/settings/preferences   - User settings (owner only)
+//
+// Security Model: Attribute-Based Access Control (ABAC)
+// - Users can only read/write their own data
+// - Admins can read/write all data for management
+// - No anonymous access
+// ============================================================================
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ======================================================================
+    // Helper Functions
+    // ======================================================================
+
+    /**
+     * Check if the requester is authenticated.
+     */
+    function isAuthenticated() {
+      return request.auth != null && request.auth.uid != null;
+    }
+
+    /**
+     * Check if the requester is the owner of the specified document.
+     */
+    function isOwner(userId) {
+      return isAuthenticated() && request.auth.uid == userId;
+    }
+
+    /**
+     * Check if the requester has admin role.
+     * Admin status is stored in the user's document.
+     */
+    function isAdmin() {
+      return isAuthenticated() &&
+        get(/databases/$(database)/documents/users/$(request.auth.uid)).data.role == 'admin';
+    }
+
+    /**
+     * Check if the requester is the owner OR an admin.
+     */
+    function isOwnerOrAdmin(userId) {
+      return isOwner(userId) || isAdmin();
+    }
+
+    /**
+     * Validate that the data contains only allowed fields for user creation.
+     */
+    function isValidUserData() {
+      let allowedFields = ['uid', 'email', 'displayName', 'role', 'photoURL', 'provider', 'createdAt', 'lastLoginAt', 'experienceLevel', 'careerGoals', 'interests', 'weeklyHours'];
+      return request.resource.data.keys().hasOnly(allowedFields);
+    }
+
+    /**
+     * Validate that the data contains only allowed fields for a project.
+     */
+    function isValidProjectData() {
+      let allowedFields = ['id', 'userId', 'title', 'description', 'status', 'createdAt', 'updatedAt', 'tags', 'milestones'];
+      return request.resource.data.keys().hasOnly(allowedFields);
+    }
+
+    /**
+     * Validate that the data contains only allowed fields for settings.
+     */
+    function isValidSettingsData() {
+      let allowedFields = ['userId', 'theme', 'emailNotifications', 'weeklyDigest', 'studyReminders', 'preferredStudyTime', 'language', 'updatedAt'];
+      return request.resource.data.keys().hasOnly(allowedFields);
+    }
+
+    // ======================================================================
+    // Users Collection
+    // /users/{userId}
+    // ======================================================================
+
+    match /users/{userId} {
+      // Anyone can create their own user document on sign-up
+      allow create: if isOwner(userId) && isValidUserData();
+
+      // Users can read and update their own document
+      allow read: if isOwnerOrAdmin(userId);
+      allow update: if isOwner(userId) && isValidUserData();
+
+      // Only admins can delete user documents
+      allow delete: if isAdmin();
+
+      // ====================================================================
+      // User Projects (Subcollection)
+      // /users/{userId}/projects/{projectId}
+      // ====================================================================
+
+      match /projects/{projectId} {
+        allow read: if isOwnerOrAdmin(userId);
+        allow create: if isOwner(userId) && isValidProjectData() && request.resource.data.userId == userId;
+        allow update: if isOwner(userId) && isValidProjectData();
+        allow delete: if isOwnerOrAdmin(userId);
+      }
+
+      // ====================================================================
+      // User Settings (Subcollection)
+      // /users/{userId}/settings/{settingId}
+      // ====================================================================
+
+      match /settings/{settingId} {
+        allow read: if isOwnerOrAdmin(userId);
+        allow create: if isOwner(userId) && isValidSettingsData();
+        allow update: if isOwner(userId) && isValidSettingsData();
+        allow delete: if isAdmin();
+      }
+    }
+
+    // ======================================================================
+    // Deny all other access by default
+    // ======================================================================
+
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "rules": {
+    ".read": true,
+    ".write": true,
+    "users": {
+      ".indexOn": ["email", "role"],
+      "$uid": {
+        ".read": true,
+        ".write": true,
+        "projects": {
+          "$projectId": {
+            ".read": true,
+            ".write": true
+          }
+        },
+        "settings": {
+          ".read": true,
+          ".write": true
+        }
+      }
+    },
+    "skills": {
+      ".indexOn": ["skill_name", "category"]
+    },
+    "user_skills": {
+      ".indexOn": ["user_id", "skill_id"]
+    },
+    "learning_paths": {
+      ".indexOn": ["user_id", "is_active"]
+    },
+    "modules": {
+      ".indexOn": ["learning_path_id"]
+    },
+    "resources": {
+      ".indexOn": ["module_id"]
+    },
+    "progress": {
+      ".indexOn": ["user_id", "module_id"]
+    },
+    "messages": {
+      ".indexOn": ["user_id"]
+    }
+  }
+}

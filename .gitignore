@@ -7,3 +7,7 @@ coverage/
 .env*
 !.env.example
 TODO.md
+
+# Firebase Admin SDK service account (NEVER commit this)
+service-account.json
+service-account-*.json

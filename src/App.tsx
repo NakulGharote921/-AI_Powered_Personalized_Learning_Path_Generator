@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { User, DashboardData } from "./types";
-import { getUserSession, appSignOut } from "./firebase";
-
+import { AuthProvider, useAuthContext } from "./contexts/AuthContext";
+import { ProtectedRoute } from "./components/ProtectedRoute";
 
 // Import modular subviews
 import LandingPage from "./components/LandingPage";
@@ -17,14 +17,44 @@ import AdminPanel from "./components/AdminPanel";
 
 import { BookOpen, Compass, BarChart2, MessageSquare, Award, UserCheck, ShieldAlert, LogOut, KeyRound, Layers } from "lucide-react";
 
-export default function App() {
-  const [user, setUser] = useState<User | null>(null);
+/**
+ * Inner app component that uses the AuthContext.
+ * This is wrapped by AuthProvider in the exported App component.
+ */
+function AppInner() {
+  const {
+    firebaseUser,
+    appUser,
+    isInitializing,
+    isLoading: authLoading,
+    logout,
+    error: authError,
+    clearError,
+  } = useAuthContext();
+
   const [activeTab, setActiveTab] = useState<string>("landing");
   const [dashboardData, setDashboardData] = useState<DashboardData | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [authChecking, setAuthChecking] = useState<boolean>(true);
   const [isMobileNavOpen, setIsMobileNavOpen] = useState(false);
   const mobileNavId = "mobile-nav";
+
+  // Map from firebase user to our User type for compatibility with existing components
+  const mappedUser: User | null = appUser
+    ? {
+        id: appUser.uid,
+        name: appUser.displayName,
+        email: appUser.email,
+        role: appUser.role,
+        created_at: appUser.createdAt,
+      }
+    : null;
+
+  // Once auth is done initializing, if user is authenticated, show dashboard
+  useEffect(() => {
+    if (!isInitializing && firebaseUser) {
+      setActiveTab((prev) => (prev === "landing" || prev === "auth" ? "dashboard" : prev));
+    }
+  }, [isInitializing, firebaseUser]);
 
   useEffect(() => {
     if (!isMobileNavOpen) return;
@@ -36,45 +66,16 @@ export default function App() {
   }, [isMobileNavOpen]);
 
   useEffect(() => {
-    const checkSession = async () => {
-      try {
-        const sessionUser = await getUserSession();
-        if (sessionUser) {
-          const syncRes = await fetch("/api/auth/firebase-sync", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              uid: sessionUser.uid,
-              email: sessionUser.email,
-              name: sessionUser.displayName || sessionUser.email.split("@")[0]
-            })
-          });
-          if (syncRes.ok) {
-            const data = await syncRes.json();
-            setUser(data.user);
-            setActiveTab("dashboard");
-          }
-        }
-      } catch (e) {
-        console.error("Session check error:", e);
-      } finally {
-        setAuthChecking(false);
-      }
-    };
-    checkSession();
-  }, []);
-
-  useEffect(() => {
-    if (user) {
+    if (mappedUser) {
       loadDashboardData();
     }
-  }, [user]);
+  }, [mappedUser]);
 
   const loadDashboardData = async () => {
-    if (!user) return;
+    if (!mappedUser) return;
     setIsLoading(true);
     try {
-      const res = await fetch(`/api/dashboard-data?userId=${user.id}`);
+      const res = await fetch(`/api/dashboard-data?userId=${mappedUser.id}`);
       if (res.ok) {
         const data = await res.json();
         setDashboardData(data);
@@ -86,23 +87,19 @@ export default function App() {
     }
   };
 
-  const handleAuthSuccess = (syncedUser: User) => {
-    setUser(syncedUser);
+  const handleAuthSuccess = () => {
     setActiveTab("dashboard");
   };
 
   const handleLogout = async () => {
     try {
-      await appSignOut();
+      await logout();
       localStorage.removeItem("vintage_session_user");
-      setUser(null);
       setDashboardData(null);
       setActiveTab("landing");
-      console.log("Successfully signed out");
     } catch (e) {
       console.error("Logout error:", e);
       localStorage.removeItem("vintage_session_user");
-      setUser(null);
       setDashboardData(null);
       setActiveTab("landing");
     }
@@ -113,7 +110,8 @@ export default function App() {
     setActiveTab("dashboard");
   };
 
-  if (authChecking) {
+  // Show loading while checking initial auth state
+  if (isInitializing) {
     return (
       <div className="min-h-screen bg-[#F7F1DE] flex flex-col justify-center items-center font-serif text-[#4E220F]">
         <div className="relative w-12 h-12 mb-4">
@@ -125,7 +123,8 @@ export default function App() {
     );
   }
 
-  if (!user) {
+  // User is not authenticated - show landing or auth page
+  if (!firebaseUser) {
     if (activeTab === "auth") {
       return (
         <AuthPage
@@ -146,7 +145,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-[#F7F1DE] flex flex-col md:flex-row selection:bg-[#9D6638] selection:text-white text-[#4E220F] w-full max-w-full overflow-hidden">
-
       {/* === DESKTOP SIDEBAR - always visible on md+ screens === */}
       <aside className="w-full md:w-64 bg-[#B0BA99]/10 border-r border-[#4E220F]/10 flex-col p-8 hidden md:flex sticky top-0 h-screen overflow-y-auto flex-shrink-0">
         <div className="mb-12">
@@ -194,7 +192,7 @@ export default function App() {
               <Award className={`w-4 h-4 flex-shrink-0 transition-colors ${activeTab === "profile" ? "text-[#9D6638]" : "text-[#4E220F]/60"}`} />
               <span>Scholar Card</span>
             </button>
-            {user.role === "admin" && (
+            {appUser?.role === "admin" && (
               <button onClick={() => setActiveTab("admin")}
                 className={`w-full flex items-center space-x-2.5 text-left transition-all font-serif py-1.5 px-3 rounded text-sm font-medium border-l-4 ${activeTab === "admin" ? "text-purple-800 bg-white/70 border-purple-800 shadow-[1px_1px_1px_rgba(78,34,15,0.05)]" : "text-[#4E220F]/80 border-transparent hover:text-purple-800 hover:bg-white/30"}`}>
                 <ShieldAlert className={`w-4 h-4 flex-shrink-0 transition-colors ${activeTab === "admin" ? "text-purple-800" : "text-[#4E220F]/60"}`} />
@@ -230,7 +228,6 @@ export default function App() {
         aria-label="Mobile navigation"
       >
         <div className="p-6 flex flex-col h-full">
-          {/* Close button */}
           <div className="flex justify-between items-center mb-8">
             <div className="font-serif font-black text-lg text-[#4E220F]">
               CHRONICLE<span className="text-[#9D6638]">.ACADEMY</span>
@@ -244,14 +241,13 @@ export default function App() {
             </button>
           </div>
 
-          {/* User badge */}
           <div className="flex items-center space-x-3 mb-6 pb-6 border-b border-[#4E220F]/10">
             <div className="w-10 h-10 rounded-full bg-[#4E220F] flex items-center justify-center text-[#F7F1DE] font-bold italic font-serif flex-shrink-0">
-              {user.name ? user.name.slice(0, 2).toUpperCase() : "JD"}
+              {appUser?.displayName ? appUser.displayName.slice(0, 2).toUpperCase() : "JD"}
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-bold truncate">{user.name}</p>
-              <p className="text-[10px] uppercase font-sans opacity-50 tracking-wider font-bold truncate">Premium scholar • Role: {user.role}</p>
+              <p className="text-sm font-bold truncate">{appUser?.displayName || "User"}</p>
+              <p className="text-[10px] uppercase font-sans opacity-50 tracking-wider font-bold truncate">Premium scholar • Role: {appUser?.role || "student"}</p>
             </div>
           </div>
 
@@ -286,7 +282,7 @@ export default function App() {
               <Award className="w-4 h-4 mr-3 flex-shrink-0" />
               Scholar Card
             </button>
-            {user.role === "admin" && (
+            {appUser?.role === "admin" && (
               <button onClick={() => { setActiveTab("admin"); closeMobileNav(); }}
                 className={`w-full flex items-center justify-start min-h-[44px] px-3 rounded-lg border-l-4 text-sm font-serif font-semibold ${activeTab === "admin" ? "text-purple-800 bg-white/70 border-purple-800" : "text-[#4E220F]/80 border-transparent hover:text-purple-800 hover:bg-white/30"}`}>
                 <ShieldAlert className="w-4 h-4 mr-3 flex-shrink-0" />
@@ -305,11 +301,9 @@ export default function App() {
 
       {/* === MAIN CONTENT AREA === */}
       <div className="flex-1 flex flex-col min-h-screen md:h-screen md:overflow-y-auto w-full min-w-0">
-
         {/* Top header bar */}
         <header className="min-h-[60px] h-auto py-3 md:h-20 border-b border-[#4E220F]/10 flex items-center justify-between px-4 sm:px-6 lg:px-10 bg-white/30 backdrop-blur-sm sticky top-0 z-30 flex-shrink-0">
           <div className="flex items-center space-x-2 sm:space-x-4 min-w-0">
-            {/* Mobile hamburger */}
             <button
               type="button"
               onClick={() => setIsMobileNavOpen((v) => !v)}
@@ -326,11 +320,11 @@ export default function App() {
             </button>
 
             <div className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-[#4E220F] flex items-center justify-center text-[#F7F1DE] font-bold italic font-serif flex-shrink-0">
-              {user.name ? user.name.slice(0, 2).toUpperCase() : "JD"}
+              {appUser?.displayName ? appUser.displayName.slice(0, 2).toUpperCase() : "JD"}
             </div>
             <div className="min-w-0">
-              <p className="text-sm font-bold truncate max-w-[100px] xs:max-w-[150px] sm:max-w-none">{user.name}</p>
-              <p className="text-[10px] uppercase font-sans opacity-50 tracking-wider font-bold truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none">Premium scholar • Role: {user.role}</p>
+              <p className="text-sm font-bold truncate max-w-[100px] xs:max-w-[150px] sm:max-w-none">{appUser?.displayName || "Scholar"}</p>
+              <p className="text-[10px] uppercase font-sans opacity-50 tracking-wider font-bold truncate max-w-[120px] xs:max-w-[170px] sm:max-w-none">Premium scholar • Role: {appUser?.role || "student"}</p>
             </div>
           </div>
 
@@ -349,61 +343,63 @@ export default function App() {
         </header>
 
         {/* Primary views frame */}
-        <main className="flex-1 p-4 sm:p-6 lg:p-10 w-full min-w-0 max-w-full">
-          {activeTab === "assessment" && (
-            <SkillAssessment
-              userId={user.id}
-              onGenerationComplete={handleAssessmentGenerationComplete}
-              onGoToDashboard={() => setActiveTab("dashboard")}
-            />
-          )}
-          {activeTab === "dashboard" && (
-            <Dashboard
-              user={user}
-              onNavigate={(tab) => setActiveTab(tab)}
-              dashboardData={dashboardData}
-              isLoading={isLoading}
-              onRefreshData={loadDashboardData}
-            />
-          )}
-          {activeTab === "path" && (
-            <LearningPathView
-              userId={user.id}
-              activePath={dashboardData?.activePath || null}
-              allUserPaths={dashboardData?.allUserPaths || []}
-              modules={dashboardData?.modules || []}
-              progressList={dashboardData?.progress || []}
-              onRefreshData={loadDashboardData}
-              onNavigate={(tab) => setActiveTab(tab)}
-            />
-          )}
-          {activeTab === "resources" && (
-            <ResourceLibrary
-              resources={dashboardData?.resources || []}
-              userId={user.id}
-              onRefreshData={loadDashboardData}
-            />
-          )}
-          {activeTab === "analytics" && (
-            <ProgressAnalytics
-              analyticsData={dashboardData?.analytics}
-            />
-          )}
-          {activeTab === "mentor" && (
-            <AIMentorChat
-              userId={user.id}
-            />
-          )}
-          {activeTab === "profile" && (
-            <UserProfile
-              user={user}
-              onLogout={handleLogout}
-            />
-          )}
-          {activeTab === "admin" && user.role === "admin" && (
-            <AdminPanel />
-          )}
-        </main>
+        <ProtectedRoute>
+          <main className="flex-1 p-4 sm:p-6 lg:p-10 w-full min-w-0 max-w-full">
+            {activeTab === "assessment" && (
+              <SkillAssessment
+                userId={mappedUser?.id || ""}
+                onGenerationComplete={handleAssessmentGenerationComplete}
+                onGoToDashboard={() => setActiveTab("dashboard")}
+              />
+            )}
+            {activeTab === "dashboard" && (
+              <Dashboard
+                user={mappedUser || { id: "", name: "", email: "", role: "student" }}
+                onNavigate={(tab) => setActiveTab(tab)}
+                dashboardData={dashboardData}
+                isLoading={isLoading}
+                onRefreshData={loadDashboardData}
+              />
+            )}
+            {activeTab === "path" && (
+              <LearningPathView
+                userId={mappedUser?.id || ""}
+                activePath={dashboardData?.activePath || null}
+                allUserPaths={dashboardData?.allUserPaths || []}
+                modules={dashboardData?.modules || []}
+                progressList={dashboardData?.progress || []}
+                onRefreshData={loadDashboardData}
+                onNavigate={(tab) => setActiveTab(tab)}
+              />
+            )}
+            {activeTab === "resources" && (
+              <ResourceLibrary
+                resources={dashboardData?.resources || []}
+                userId={mappedUser?.id || ""}
+                onRefreshData={loadDashboardData}
+              />
+            )}
+            {activeTab === "analytics" && (
+              <ProgressAnalytics
+                analyticsData={dashboardData?.analytics}
+              />
+            )}
+            {activeTab === "mentor" && (
+              <AIMentorChat
+                userId={mappedUser?.id || ""}
+              />
+            )}
+            {activeTab === "profile" && (
+              <UserProfile
+                user={mappedUser || { id: "", name: "", email: "", role: "student" }}
+                onLogout={handleLogout}
+              />
+            )}
+            {activeTab === "admin" && appUser?.role === "admin" && (
+              <AdminPanel />
+            )}
+          </main>
+        </ProtectedRoute>
 
         {/* Styled Footer */}
         <footer className="bg-[#FAF6EB]/40 border-t border-[#4E220F]/10 py-4 sm:py-5 mt-auto">
@@ -412,8 +408,19 @@ export default function App() {
             <div className="text-center sm:text-right">ESTABLISHED 2026 • BUILT FOR INTELLECTUAL CAPABILITY</div>
           </div>
         </footer>
-
       </div>
     </div>
+  );
+}
+
+/**
+ * Root App component.
+ * Wraps the application with Firebase AuthProvider.
+ */
+export default function App() {
+  return (
+    <AuthProvider>
+      <AppInner />
+    </AuthProvider>
   );
 }

@@ -152,25 +152,82 @@ GEMINI_API_KEY=your_gemini_api_key_here
 
 > **⚠️ Note:** If you skip this step, the app falls back to a built-in template engine that generates realistic learning paths and mentor responses without AI. This is great for testing the UI or demoing without an API key.
 
-#### 2. Set up Firebase (Optional — for Google Sign-In)
+#### 2. Set up Firebase (Required for Authentication & Database)
 
-1. Create a project in Firebase Console.
-2. Enable **Authentication** → **Sign-in method** → **Google**.
-3. Create a web app in your Firebase project.
-4. Copy the Firebase config object and update `src/firebase.ts` with your credentials:
+> **Note:** Firebase is now required for authentication and data storage. The app uses Firebase Auth for user management and Firestore for storing all user data.
 
-```typescript
-const firebaseConfig = {
-  apiKey: "your-api-key",
-  authDomain: "your-project.firebaseapp.com",
-  projectId: "your-project",
-  storageBucket: "your-project.appspot.com",
-  messagingSenderId: "your-sender-id",
-  appId: "your-app-id"
-};
+##### Firebase Console Configuration Steps
+
+1. **Create a Firebase Project**
+   - Go to [Firebase Console](https://console.firebase.google.com/)
+   - Click **Add project** and follow the setup wizard
+   - Disable Google Analytics if not needed
+
+2. **Register a Web App**
+   - In your Firebase project, click **Add app** → **Web** (</> icon)
+   - Register your app with a nickname (e.g., "chronicle-academy")
+   - Copy the Firebase configuration object
+
+3. **Enable Authentication**
+   - In Firebase Console, go to **Authentication** → **Sign-in method**
+   - Click **Email/Password** → **Enable** → **Save**
+   - (Optional) Enable **Google** provider for Google Sign-In
+   - Under **Settings** → **Authorized domains**, ensure your app's domain is listed
+
+4. **Create Firestore Database**
+   - Go to **Firestore Database** → **Create database**
+   - Choose **Start in production mode** (we'll apply our rules)
+   - Select a location closest to your users
+   - Click **Done**
+
+5. **Deploy Firestore Security Rules**
+   - Go to **Firestore Database** → **Rules** tab
+   - Replace the default rules with the contents of `firestore.rules` in this project
+   - Click **Publish**
+
+6. **Set Up Required Indexes** (if needed)
+   - The app uses `orderBy("createdAt", "desc")` on subcollections
+   - If prompted, create the composite indexes as suggested by Firebase
+
+##### Local Setup
+
+Copy the `.env.example` file to `.env` and fill in your Firebase configuration:
+
+```bash
+cp .env.example .env
 ```
 
-> The app also works perfectly fine using only the built-in local authentication.
+Edit `.env` with your Firebase project values:
+
+```env
+VITE_FIREBASE_API_KEY=AIzaSyYourActualApiKey
+VITE_FIREBASE_AUTH_DOMAIN=your-project.firebaseapp.com
+VITE_FIREBASE_PROJECT_ID=your-project-id
+VITE_FIREBASE_STORAGE_BUCKET=your-project.appspot.com
+VITE_FIREBASE_MESSAGING_SENDER_ID=123456789
+VITE_FIREBASE_APP_ID=1:123456789:web:abcdef123456
+```
+
+> **⚠️ Security:** The `.env` file is in `.gitignore` and will not be committed. Never commit your actual Firebase secrets.
+
+##### Firestore Collections Structure
+
+The app expects the following Firestore structure (auto-created on sign-up):
+
+```
+/users/{uid}                    → AppUser document (auto-created on register)
+/users/{uid}/projects/{id}      → User projects subcollection
+/users/{uid}/settings/preferences → User settings
+```
+
+##### Firestore Security Rules Summary
+
+The `firestore.rules` file enforces:
+- Users can only read/write their own data
+- Admins have full read access for platform management
+- Field-level validation prevents injection of unexpected fields
+- Subcollections are scoped to their parent user
+- All other access is denied by default
 
 ### Running the App
 
